@@ -1,5 +1,3 @@
-import React from "react";
-
-export default function Trails() {
-  return <div>page</div>;
+export function Trails() {
+  return <h1>Trials page</h1>;
 }
