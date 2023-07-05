@@ -1,5 +1,7 @@
+import { NextAuthProvider } from "@/providers/auth";
 import "./globals.css";
 import { Poppins } from "next/font/google";
+import { Header } from "@/components/Header";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -8,7 +10,7 @@ const poppins = Poppins({
 
 export const metadata = {
   title: "FSW Trails",
-  description: "Aplicativo de alugar viagens TOP!",
+  description: "Sistema de Reserva de Viagens TOP!",
 };
 
 export default function RootLayout({
@@ -18,7 +20,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <NextAuthProvider>
+          <Header />
+
+          {children}
+        </NextAuthProvider>
+      </body>
     </html>
   );
 }
