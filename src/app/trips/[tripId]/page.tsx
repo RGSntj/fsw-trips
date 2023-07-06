@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
 import { TripHeader } from "./components/TripHeader";
+import { TripReservation } from "./components/TripReservation";
 
 async function getTripDetails(tripId: string) {
   const trip = await prisma.trip.findUnique({
@@ -19,13 +20,14 @@ export default async function TripsDetails({
 }) {
   const trip = await getTripDetails(params.tripId);
 
-  if (!trip) return;
+  if (!trip) return null;
 
   return (
     <div className="container mx-auto">
       <TripHeader trip={trip} />
 
       {/* RESERVA */}
+      <TripReservation trip={trip} />
     </div>
   );
 }
