@@ -29,11 +29,15 @@ model Trip {
 }
 
 model TripReservation {
-  id      String  @id @default(uuid())
-  tripsId String
-  trip    Trip    @relation(fields: [tripsId], references: [id])
-  user    User?   @relation(fields: [userId], references: [id])
-  userId  String?
+  id        String   @id @default(uuid())
+  tripsId   String
+  trip      Trip     @relation(fields: [tripsId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  startDate DateTime
+  endDate   DateTime
+  totalPaid Decimal  @db.Decimal(8, 2)
+  guests    Int      @default(5)
 }
 
 model Account {
