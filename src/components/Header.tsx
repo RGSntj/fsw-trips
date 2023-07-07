@@ -2,6 +2,7 @@
 
 import { signIn, useSession, signOut } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 
@@ -14,14 +15,16 @@ export function Header() {
 
   return (
     <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center">
-      <div className="relative h-[32px] w-[183px]">
-        <Image
-          width={183}
-          height={32}
-          src="/logo.png"
-          alt="Logo FullstackWeek"
-        />
-      </div>
+      <Link href="/">
+        <div className="relative h-[32px] w-[183px]">
+          <Image
+            width={183}
+            height={32}
+            src="/logo.png"
+            alt="Logo FullstackWeek"
+          />
+        </div>
+      </Link>
       {status === "unauthenticated" && (
         <button
           className="text-purple-700 text-sm font-semibold"
