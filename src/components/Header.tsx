@@ -46,7 +46,7 @@ export function Header() {
             className="rounded-full"
           />
           {isOpenMenu && (
-            <div className="absolute top-14 left-0 w-full h-full bg-white rounded-lg shadow-md flex flex-col justify-center items-center">
+            <div className="z-50 absolute top-14 left-0 w-full h-full bg-gray-100 rounded-lg shadow-md flex flex-col justify-center items-center">
               <button
                 className="text-red-500 text-sm font-semibold"
                 onClick={handleLogout}
