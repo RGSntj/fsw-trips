@@ -10,6 +10,7 @@ import ptBr from "date-fns/locale/pt-BR";
 
 import { Button } from "@/components/Button";
 import { Trip } from "@prisma/client";
+import { toast } from "react-toastify";
 
 export default function TripConfirmation({
   params,
@@ -21,7 +22,7 @@ export default function TripConfirmation({
 
   const router = useRouter();
 
-  const { status } = useSession();
+  const { status, data } = useSession();
 
   const searchParams = useSearchParams();
 
@@ -37,6 +38,11 @@ export default function TripConfirmation({
       });
 
       const res = await response.json();
+
+      if (res?.error) {
+        return router.push("/");
+      }
+
       setTrip(res.trip);
       setTotalPrice(res.totalPrice);
     }
@@ -46,11 +52,35 @@ export default function TripConfirmation({
     }
 
     fetchTrip();
-  }, []);
-
-  console.log({ trip });
+  }, [status, searchParams]);
 
   if (!trip) return null;
+
+  async function handleBuyClick() {
+    const res = await fetch("http://localhost:3000/api/trips/reservation", {
+      method: "POST",
+      body: Buffer.from(
+        JSON.stringify({
+          tripId: params.tripId,
+          startDate: searchParams.get("startDate"),
+          endDate: searchParams.get("endDate"),
+          guests: Number(searchParams.get("guests")),
+          userId: (data?.user as any)?.id!,
+          totalPaid: totalPrice,
+        })
+      ),
+    });
+
+    if (!res.ok) {
+      return toast.error("Ocorreu um erro ao realizar a reserva!", {
+        position: "bottom-center",
+      });
+    }
+
+    toast.success("Reserva realizada com sucesso!", {
+      position: "bottom-center",
+    });
+  }
 
   const startDate = new Date(searchParams.get("startDate") as string);
   const endDate = new Date(searchParams.get("endDate") as string);
@@ -105,7 +135,9 @@ export default function TripConfirmation({
         <h3 className="font-semibold mt-5">Hóspedes</h3>
         <p>{guests} hóspedes</p>
 
-        <Button className="mt-5 w-full">Finalizar compra</Button>
+        <Button className="mt-5 w-full" onClick={handleBuyClick}>
+          Finalizar compra
+        </Button>
       </div>
     </div>
   );

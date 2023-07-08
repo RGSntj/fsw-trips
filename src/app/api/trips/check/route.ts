@@ -45,7 +45,7 @@ export async function POST(requests: Request) {
 
   const reservation = await prisma.tripReservation.findMany({
     where: {
-      tripsId: req.tripId,
+      tripId: req.tripId,
       startDate: {
         lte: new Date(req.startDate),
       },
