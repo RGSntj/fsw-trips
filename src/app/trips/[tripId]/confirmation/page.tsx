@@ -77,6 +77,8 @@ export default function TripConfirmation({
       });
     }
 
+    router.push("/");
+
     toast.success("Reserva realizada com sucesso!", {
       position: "bottom-center",
     });
