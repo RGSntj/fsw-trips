@@ -4,6 +4,7 @@ import { Button } from "@/components/Button";
 import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import { differenceInDays } from "date-fns";
+import { useRouter } from "next/navigation";
 
 import { Controller, useForm } from "react-hook-form";
 
@@ -37,6 +38,8 @@ export function TripReservation({
     setError,
   } = useForm<FormData>();
 
+  const router = useRouter();
+
   async function onSubmit(data: FormData) {
     const response = await fetch("http://localhost:3000/api/trips/check", {
       method: "POST",
@@ -69,6 +72,19 @@ export function TripReservation({
         message: "Data inválida.",
       });
     }
+
+    if (res?.error?.code === "INVALID_END_DATE") {
+      return setError("endDate", {
+        type: "manual",
+        message: "Data inválida.",
+      });
+    }
+
+    router.push(
+      `/trips/${tripId}/confirmation?startDate=${data.startDate?.toISOString()}&endDate=${data.endDate?.toISOString()}&guests=${
+        data.guests
+      }`
+    );
   }
 
   const startDate = watch("startDate");
