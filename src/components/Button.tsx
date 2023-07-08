@@ -9,7 +9,8 @@ export function Button({ className, variant = "primary", ...rest }: Props) {
   const variantClasses = {
     primary: "bg-primary text-white hover:bg-primaryDarker",
     outlined: "bg-transparent border-2 border-primary text-primary",
-    danger: "bg-transparent border border-red-500 text-red-500",
+    danger:
+      "bg-transparent border border-red-500 hover:bg-red-600 hover:text-white text-red-500",
   };
 
   const buttonClassName = twMerge(
