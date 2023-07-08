@@ -8,6 +8,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 
 export function Header() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+
   const { status, data } = useSession();
   const handleLogin = () => signIn();
 
@@ -49,7 +50,12 @@ export function Header() {
             className="rounded-full"
           />
           {isOpenMenu && (
-            <div className="z-50 absolute top-14 left-0 w-full h-full bg-gray-100 rounded-lg shadow-md flex flex-col justify-center items-center">
+            <div className="z-50 absolute top-14 left-0 w-full h-[100px] bg-gray-100 rounded-lg shadow-md flex flex-col justify-center items-center">
+              <Link href="/my-trips">
+                <button className="text-primary pb-2 border-b border-solid border-grayLighter text-sm mb-5 font-semibold">
+                  Minhas viagens
+                </button>
+              </Link>
               <button
                 className="text-red-500 text-sm font-semibold"
                 onClick={handleLogout}
