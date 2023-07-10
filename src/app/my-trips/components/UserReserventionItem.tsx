@@ -12,9 +12,13 @@ interface Props {
   reservation: Prisma.TripReservationGetPayload<{
     include: { trip: true };
   }>;
+  fetchReservations: () => void;
 }
 
-export function UserReserventionItem({ reservation }: Props) {
+export function UserReserventionItem({
+  reservation,
+  fetchReservations,
+}: Props) {
   const { trip } = reservation;
 
   if (!trip) return null;
@@ -34,6 +38,8 @@ export function UserReserventionItem({ reservation }: Props) {
     toast.success("Reserva cancelada com sucesso!", {
       position: "bottom-center",
     });
+
+    fetchReservations();
   }
 
   return (
