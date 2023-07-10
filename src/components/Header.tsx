@@ -51,7 +51,7 @@ export function Header() {
           />
           {isOpenMenu && (
             <div className="z-50 absolute top-14 left-0 w-full h-[100px] bg-gray-100 rounded-lg shadow-md flex flex-col justify-center items-center">
-              <Link href="/my-trips">
+              <Link href="/my-trips" onClick={() => setIsOpenMenu(false)}>
                 <button className="text-primary pb-2 border-b border-solid border-grayLighter text-sm mb-5 font-semibold">
                   Minhas viagens
                 </button>

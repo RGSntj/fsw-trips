@@ -7,7 +7,7 @@ export async function GET(
 ) {
   const { searchParams } = new URL(requests.url);
 
-  console.log({ userId });
+  // console.log({ userId });
 
   if (!userId) {
     return {
@@ -27,7 +27,7 @@ export async function GET(
     },
   });
 
-  console.log({ reservations });
+  // console.log({ reservations });
 
   return new NextResponse(JSON.stringify(reservations), { status: 200 });
 }
