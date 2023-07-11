@@ -27,7 +27,7 @@ export default function Trips() {
 
       const data = await response.json();
 
-      console.log({ data });
+      // console.log({ data });
       setTrips(data);
     }
 
