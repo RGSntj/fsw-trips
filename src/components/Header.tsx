@@ -15,7 +15,7 @@ export function Header() {
   const handleLogout = () => signOut();
 
   return (
-    <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center">
+    <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center lg:border-b lg:border-grayLighter">
       <Link href="/">
         <div className="relative h-[32px] w-[183px]">
           <Image
@@ -36,7 +36,7 @@ export function Header() {
       )}
 
       {status === "authenticated" && data.user && (
-        <div className="flex items-center gap-3 border-gray-500 border border-solid rounded-full p-2 px-3 relative">
+        <div className="flex items-center gap-3 border-grayLighter border border-solid rounded-full p-2 px-3 relative">
           <AiOutlineMenu
             size={16}
             className="cursor-pointer"
@@ -47,17 +47,17 @@ export function Header() {
             alt={data.user.name!}
             height={35}
             width={35}
-            className="rounded-full"
+            className="rounded-full shadow-md"
           />
           {isOpenMenu && (
-            <div className="z-50 absolute top-14 left-0 w-full h-[100px] bg-gray-100 rounded-lg shadow-md flex flex-col justify-center items-center">
+            <div className="z-50 absolute top-14 left-0 w-full h-[100px] bg-white rounded-lg shadow-md flex flex-col justify-center items-center">
               <Link href="/my-trips" onClick={() => setIsOpenMenu(false)}>
-                <button className="text-primary pb-2 border-b border-solid border-grayLighter text-sm mb-5 font-semibold">
+                <button className="text-primary pb-2 border-b border-solid border-grayLighter text-sm font-semibold">
                   Minhas viagens
                 </button>
               </Link>
               <button
-                className="text-red-500 text-sm font-semibold"
+                className="text-red-500 pt-2 text-sm font-semibold"
                 onClick={handleLogout}
               >
                 Logout
