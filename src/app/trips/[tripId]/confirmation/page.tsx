@@ -58,7 +58,7 @@ export default function TripConfirmation({
   if (!trip) return null;
 
   async function handleBuyClick() {
-    const res = await fetch("http://localhost:3000/api/payment", {
+    const res = await fetch("/api/payment", {
       method: "POST",
       body: Buffer.from(
         JSON.stringify({
