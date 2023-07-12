@@ -11,6 +11,7 @@ import ptBr from "date-fns/locale/pt-BR";
 import { Button } from "@/components/Button";
 import { Trip } from "@prisma/client";
 import { toast } from "react-toastify";
+import { loadStripe } from "@stripe/stripe-js";
 
 export default function TripConfirmation({
   params,
@@ -57,7 +58,7 @@ export default function TripConfirmation({
   if (!trip) return null;
 
   async function handleBuyClick() {
-    const res = await fetch("http://localhost:3000/api/trips/reservation", {
+    const res = await fetch("http://localhost:3000/api/payment", {
       method: "POST",
       body: Buffer.from(
         JSON.stringify({
@@ -65,8 +66,10 @@ export default function TripConfirmation({
           startDate: searchParams.get("startDate"),
           endDate: searchParams.get("endDate"),
           guests: Number(searchParams.get("guests")),
-          userId: (data?.user as any)?.id!,
-          totalPaid: totalPrice,
+          totalPrice,
+          coverImage: trip?.coverImage,
+          name: trip?.name,
+          description: trip?.description,
         })
       ),
     });
@@ -77,7 +80,14 @@ export default function TripConfirmation({
       });
     }
 
-    router.push("/");
+    const { sessionId } = await res.json();
+
+    const stripe = await loadStripe(
+      process.env.NEXT_PUBLIC_STRIPE_KEY as string
+    );
+
+    await stripe?.redirectToCheckout({ sessionId });
+    // router.push("/");
 
     toast.success("Reserva realizada com sucesso!", {
       position: "bottom-center",

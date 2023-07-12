@@ -107,7 +107,7 @@ export function TripReservation({
               onChange={field.onChange}
               selected={field.value}
               className="w-full"
-              minDate={tripStartDate}
+              minDate={tripStartDate && new Date()}
             />
           )}
         />
